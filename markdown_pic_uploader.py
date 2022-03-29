@@ -136,7 +136,7 @@ def toOSS(md_local_path):
                 num=index+1, name=img).ljust(100), end='')
 
         # 判断该图片是否已经在OSS图床
-        elif images[index][:48] == "https://img-of-picgo.oss-cn-beijing.aliyuncs.com":
+        elif images[index][:8] == "https://":
             OSS_pic = OSS_pic + 1
             img = img_name
             print("\r", "正在处理第 {num} 张图片({name})...".format(
@@ -196,7 +196,7 @@ def toOSS(md_local_path):
         # 判断是否上传成功
         if result.status == 200:
             url = os.path.join(conf['UrlPrefix'], img)
-            md_data = md_data.replace(images[index], url)
+            md_data = md_data.replace(images[index], url, 1)
             success_time = success_time + 1
         else:
             error_message.append("未知错误")
