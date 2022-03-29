@@ -1,0 +1,7 @@
+{
+	"Bucket":"xxx",
+	"EndPoint":"比如oss-cn-beijing.aliyuncs.com",
+	"UrlPrefix":"比如https://xxx.oss-cn-beijing.aliyuncs.com",
+	"AccessKeyId":"xxx",
+	"AccessKeySecret":"xxx"
+}
