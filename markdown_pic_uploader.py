@@ -23,7 +23,8 @@ def parse_config(conf_path):
         config_date = fo.read()
     return json.loads(config_date)
 
-# 解析%开头的汉字字符串
+# 如果图片名中有的汉字转码后产生的%开头的字符串则将其转码成汉字
+# 如果图片名不包含转码后产生的%开头的字符串则不处理
 
 
 def parse_chinese(ori_str):
@@ -129,21 +130,15 @@ def toOSS(md_local_path):
         img_dir = parse_path(images[index])[0]
         md_dir = parse_path(md_local_path)[0]
 
-        # 解析%号开头的中文字符串
-        if img_name[0] == '%':
-            img = parse_chinese(img_name)
-            print("\r", "正在处理第 {num} 张图片({name})...".format(
-                num=index+1, name=img).ljust(100), end='')
-
         # 判断该图片是否已经在OSS图床
-        elif images[index][:8] == "https://":
+        if images[index][:8] == "https://":
             OSS_pic = OSS_pic + 1
             img = img_name
             print("\r", "正在处理第 {num} 张图片({name})...".format(
                 num=index+1, name=img).ljust(100), end='')
             continue
         else:
-            img = img_name
+            img = parse_chinese(img_name)
             print("\r", "正在处理第 {num} 张图片({name})...".format(
                 num=index+1, name=img).ljust(100), end='')
 
